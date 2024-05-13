@@ -4,7 +4,7 @@ import apiClient from "../services/api-client";
 const FoodInfo = ({ ingr, setApiResponse }) => {
   useEffect(() => {
     apiClient
-      .get("", { params: { ingr: ingr } })
+      .get("/x", { params: { ingr: ingr } })
       .then((response) => {
         console.log("Response:", response.data);
         setApiResponse(response.data);

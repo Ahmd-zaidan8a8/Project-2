@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import FoodInfo from "../components/FoodInfo";
 import DailyNutritionCard from "../components/DailyNutrionCard";
 
@@ -19,17 +18,17 @@ const HomePage = () => {
         <h2>Enter your ingredients: </h2>
         <small>Please enter each ingredient line by line.</small>
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
+          onSubmit={handleSubmit((data) => {
+            setIngr(data);
+            console.log(data)
             setSubmitted(true);
-          }}
+          })}
         >
           <div className="form-floating my-2">
             <textarea
-              value={textValue}
-              onChange={handleTextAreaChange}
+              {...register("ingr")}
               className="form-control"
-              id="floatingTextarea"
+              id="ingr"
             ></textarea>
           </div>
           <button type="submit" className="btn btn-primary">
@@ -37,10 +36,14 @@ const HomePage = () => {
           </button>
         </form>
       </div>
+<<<<<<< HEAD
         <div>
           {isSubmitted && <FoodInfo ingr={textValue} setApiResponse={setApiResponse}/>}
         </div>
         <DailyNutritionCard nutritionDetails={apiResponse} />
+=======
+      <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div>
+>>>>>>> e78eb5c37aacfb75f19811239b79bff1d9ba8df3
     </div>
   );
 };
