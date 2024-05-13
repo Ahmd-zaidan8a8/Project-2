@@ -3,7 +3,7 @@ import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
-import Info from "./components/Info";
+import Info from "./components/FoodInfo";
 import Dashboard from "./pages/Dashboard";
 
 const App = () => {

@@ -9,7 +9,6 @@ const Dashboard = () => {
           console.log("submitted!");
         }}
       >
-        <div className="mb-3">
           <div className="mb-3">
             <select name="gender" id="gender">
               <option value=""></option>
@@ -18,6 +17,7 @@ const Dashboard = () => {
             </select>
           </div>
 
+        <div className="mb-3">
           <label htmlFor="userName" className="form-label">
             Username:{" "}
           </label>
