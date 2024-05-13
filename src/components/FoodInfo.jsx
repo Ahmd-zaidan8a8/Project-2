@@ -1,20 +1,29 @@
-import { useEffect } from "react";
-import apiClient from "../services/api-client";
+import { useEffect, useState } from "react";
+import DailyNutritionCard from "./DailyNutrionCard";
+import axios from "axios";
 
-const FoodInfo = ({ ingr, setApiResponse }) => {
+// TODO: the api-client configrution object
+
+const FoodInfo = ({ ingr }) => {
+  const [apiResponse, setApiResponse] = useState(null);
+
   useEffect(() => {
-    apiClient
-      .get("", { params: { ingr: ingr } })
+    axios.get(`http://localhost:5000/nutrition-data?ingr=${ingr}`)
       .then((response) => {
         console.log("Response:", response.data);
         setApiResponse(response.data);
       })
       .catch((error) => {
-        console.error("Error:", error);
+        console.error("Error:", error.message);
       });
-  }, [ingr, setApiResponse]);
+  }, [ingr]);
 
-  return <div>FoodInfo</div>;
+  return (
+    <div>
+      info here
+      <DailyNutritionCard nutritionDetails={apiResponse} />
+    </div>
+  );
 };
 
 export default FoodInfo;

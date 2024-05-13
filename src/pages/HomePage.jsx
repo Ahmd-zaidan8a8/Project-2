@@ -1,12 +1,10 @@
 import { useState } from "react";
 import FoodInfo from "../components/FoodInfo";
-import DailyNutritionCard from "../components/DailyNutrionCard";
 import { useForm } from "react-hook-form";
 
 const HomePage = () => {
-  const [apiResponse, setApiResponse] = useState(null);
   const [isSubmitted, setSubmitted] = useState(false);
-  const [ingr , setIngr] = useState('');
+  const [ingr, setIngr] = useState("");
   const { register, handleSubmit } = useForm();
 
   return (
@@ -14,10 +12,10 @@ const HomePage = () => {
       <div>
         <h2>Enter your ingredients: </h2>
         <small>Please enter each ingredient line by line.</small>
+        {/* TODO:the data in a form of object */}
         <form
-          onSubmit={handleSubmit((data) => {
-            setIngr(data);
-            console.log(data);
+          onSubmit={handleSubmit(({ ingr }) => {
+            setIngr(ingr);
             setSubmitted(true);
           })}
         >
@@ -33,12 +31,7 @@ const HomePage = () => {
           </button>
         </form>
       </div>
-      <div>
-        {isSubmitted && (
-          <FoodInfo ingr={ingr} setApiResponse={setApiResponse} />
-        )}
-      </div>
-      <DailyNutritionCard nutritionDetails={apiResponse} />
+      <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div>
     </div>
   );
 };
