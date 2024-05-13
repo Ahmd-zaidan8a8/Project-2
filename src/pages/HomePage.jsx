@@ -1,16 +1,13 @@
 import { useState } from "react";
 import FoodInfo from "../components/FoodInfo";
 import DailyNutritionCard from "../components/DailyNutrionCard";
+import { useForm } from "react-hook-form";
 
 const HomePage = () => {
-  const [textValue, setTextArea] = useState("");
   const [apiResponse, setApiResponse] = useState(null);
-  const [isSubmitted , setSubmitted] = useState(false);
-
-  const handleTextAreaChange = (e) => {
-    setTextArea(e.target.value);
-    console.log(textValue);
-  };
+  const [isSubmitted, setSubmitted] = useState(false);
+  const [ingr , setIngr] = useState('');
+  const { register, handleSubmit } = useForm();
 
   return (
     <div className="d-flex justify-content-between">
@@ -20,7 +17,7 @@ const HomePage = () => {
         <form
           onSubmit={handleSubmit((data) => {
             setIngr(data);
-            console.log(data)
+            console.log(data);
             setSubmitted(true);
           })}
         >
@@ -36,10 +33,12 @@ const HomePage = () => {
           </button>
         </form>
       </div>
-        <div>
-          {isSubmitted && <FoodInfo ingr={textValue} setApiResponse={setApiResponse}/>}
-        </div>
-        <DailyNutritionCard nutritionDetails={apiResponse} />
+      <div>
+        {isSubmitted && (
+          <FoodInfo ingr={ingr} setApiResponse={setApiResponse} />
+        )}
+      </div>
+      <DailyNutritionCard nutritionDetails={apiResponse} />
     </div>
   );
 };
