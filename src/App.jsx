@@ -4,21 +4,25 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import Info from "./components/Info";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
     <div>
-      <Navbar />
+      {/* <Navbar /> */}
 
-      <Sidebar />
+      {/* <Sidebar /> */}
+
+      
 
       {/* <Info /> */}
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
 
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

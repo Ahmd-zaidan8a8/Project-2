@@ -2,7 +2,7 @@ import apiClient from "../services/api-client";
 
 const Info = () => {
   apiClient
-    .get()
+    // .get()
     .then((response) => {
       console.log("Response:", response.data);
     })
