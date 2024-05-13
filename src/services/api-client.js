@@ -10,6 +10,5 @@ export default axios.create({
   params: {
     app_id: YOUR_APP_ID_NUTRITION,
     app_key: YOUR_APP_KEY_NUTRITION,
-    ingr: "5 eggs"
   },
 });

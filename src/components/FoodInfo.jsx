@@ -1,14 +1,17 @@
+import { useEffect } from "react";
 import apiClient from "../services/api-client";
 
-const FoodInfo = () => {
-  // apiClient
-  //   // .get()
-  //   .then((response) => {
-  //     console.log("Response:", response.data);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error:", error);
-  //   });
+const FoodInfo = ({ ingr }) => {
+  useEffect(() => {
+    apiClient
+      .get("", { params: { ingr: ingr } })
+      .then((response) => {
+        console.log("Response:", response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
 
   return <div>FoodInfo</div>;
 };
