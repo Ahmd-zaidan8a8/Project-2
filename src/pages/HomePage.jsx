@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import FoodInfo from "../components/FoodInfo";
+import DailyNutritionCard from "../components/DailyNutrionCard";
 
 const HomePage = () => {
   const [textValue, setTextArea] = useState("");
+  const [apiResponse, setApiResponse] = useState(null);
   const [isSubmitted , setSubmitted] = useState(false);
 
   const handleTextAreaChange = (e) => {
     setTextArea(e.target.value);
+    console.log(textValue);
   };
 
   return (
@@ -35,8 +38,9 @@ const HomePage = () => {
         </form>
       </div>
         <div>
-          {isSubmitted && <FoodInfo ingr={textValue} />}
+          {isSubmitted && <FoodInfo ingr={textValue} setApiResponse={setApiResponse}/>}
         </div>
+        <DailyNutritionCard nutritionDetails={apiResponse} />
     </div>
   );
 };

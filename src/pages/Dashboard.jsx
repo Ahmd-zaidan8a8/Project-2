@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="card">
+      <h2 className="mb-3">Let's Get Started!</h2>
       <form
         onSubmit={(e) => {
           e.preventDefault();
