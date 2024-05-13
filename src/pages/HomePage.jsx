@@ -36,14 +36,10 @@ const HomePage = () => {
           </button>
         </form>
       </div>
-<<<<<<< HEAD
         <div>
           {isSubmitted && <FoodInfo ingr={textValue} setApiResponse={setApiResponse}/>}
         </div>
         <DailyNutritionCard nutritionDetails={apiResponse} />
-=======
-      <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div>
->>>>>>> e78eb5c37aacfb75f19811239b79bff1d9ba8df3
     </div>
   );
 };
