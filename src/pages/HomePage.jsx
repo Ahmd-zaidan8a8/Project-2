@@ -1,17 +1,24 @@
 import { useState } from "react";
 import FoodInfo from "../components/FoodInfo";
 import { useForm } from "react-hook-form";
-import Summary from "./Summary";
 import UserInfoCardHome from "../components/UserInfoCardHome";
 import SummaryList from "./SummaryList";
 
 const HomePage = ({ loginData }) => {
-  const [mealCount , setMealCount] = useState(0);
-  const [dailyCalories, setDailyCalories] = useState(0);
+  const [meals, setMeals] = useState([]);
+  
+  
+  const [meal, setMeal] = useState({
+    mealCount: 0,
+    dailyCalories: 0,
+    ingr: "",
+  });
+
+  
+
   const [isSubmitted, setSubmitted] = useState(false);
-  const [ingr, setIngr] = useState("");
   const [isConsumed, setConsumed] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const { gender, height, id, userName, weight } = loginData;
 
@@ -29,6 +36,20 @@ const HomePage = ({ loginData }) => {
     return burn;
   };
 
+  function splitIngr(ingr) {
+    let ingrArr = ingr.split("\n");
+    return ingrArr;
+  }
+  const onSubmit = (ingr) => {
+    setMeal({
+      dailyCalories: calcCalories(weight, height),
+      ingr: splitIngr(ingr),
+      mealCount: meal.mealCount + 1,
+    });
+    setConsumed(true);
+  };
+  
+
   return (
     <div>
       <div className={isConsumed ? "d-none" : "d-flex justify-content-between"}>
@@ -45,8 +66,9 @@ const HomePage = ({ loginData }) => {
           {/* TODO:the data in a form of object */}
           <form
             onSubmit={handleSubmit(({ ingr }) => {
-              setIngr(ingr);
+              onSubmit(ingr);
               setSubmitted(true);
+              reset();
             })}
           >
             <div className="form-floating my-2">
@@ -58,14 +80,8 @@ const HomePage = ({ loginData }) => {
             </div>
 
             <div className="d-felx jsutify-content-start">
-              <button type="submit"
-                onClick={() => {
-                  setTimeout(() => {
-                    setDailyCalories(calcCalories(weight, height));
-                    setMealCount(mealCount + 1);
-                    setConsumed(true);
-                  }, 2000);
-                }}
+              <button
+                type="submit"
                 className="btn btn-secondary"
               >
                 Add to Mealplan
@@ -78,10 +94,21 @@ const HomePage = ({ loginData }) => {
         </div>
         {/* <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div> */}
       </div>
-      {isConsumed && <SummaryList dailyCalories={dailyCalories} ingr={ingr} mealCount={mealCount} />}
-      <div className="my-4"><button onClick={() => {
-        setConsumed(false);
-      }} className="btn btn-secondary">Back to Home Page</button></div>
+      {isConsumed && (
+        <div>
+          <SummaryList meal={meal} setMeals={setMeals} meals={meals}/>
+          <div className="my-4">
+            <button
+              onClick={() => {
+                setConsumed(false);
+              }}
+              className="btn btn-secondary"
+            >
+              Back to Home Page
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
