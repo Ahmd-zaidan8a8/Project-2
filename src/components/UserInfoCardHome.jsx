@@ -1,27 +1,20 @@
-function UserInfoCardHome() {
-    // if (!userInfo) {
-    //     return <div></div>;
-    // }
+function UserInfoCardHome({gender, height, userName, weight}) {
+    //receiving props from homepage
+    const calcCalories = (weight , height) => {
+        let BMR = 0;
+        let burn = 0;
+        if (gender === "Male") {
+            BMR = (10 * weight) + (6.25 * height) - (5 * 30) + 5 //age shoudld be in place for 30
+            burn = BMR * 1.2;
+        } else {
+            BMR = (10 * weight) + (6.25 * height) - (5 * 30) - 161 // age should be in place for 30
+            burn = BMR * 1.2;
+        }
 
-    // const { userName, height, weight} = userInfo;
+        return burn;
 
-    //testing variables
-    let userName = "Mike";
-    let height = 180;
-    let weight = 100;
-    let Male = true;
-    //
-
-    let BMR = 0;
-    let burn = 0;
-    
-    if (Male) {
-        BMR = (10 * weight) + (6.25 * height) - (5 * 30) + 5 //age shoudld be in place for 30
-        burn = BMR * 1.2;
-    } else {
-        BMR = (10 * weight) + (6.25 * height) - (5 * 30) - 161 // age should be in place for 30
-        burn = BMR * 1.2;
     }
+    const burn = calcCalories(weight , height);
     return (
         <section id="userInfoCardHome">
             
