@@ -1,11 +1,13 @@
 import { useState } from "react";
 import FoodInfo from "../components/FoodInfo";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
   const [isSubmitted, setSubmitted] = useState(false);
   const [ingr, setIngr] = useState("");
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   return (
     <div className="d-flex justify-content-between">
@@ -26,9 +28,25 @@ const HomePage = () => {
               id="ingr"
             ></textarea>
           </div>
-          <button type="submit" className="btn btn-primary">
-            Submit
-          </button>
+          <div className="d-flex justify-content-evenly">
+            <button
+              type="submit"
+              onClick={() => {
+                console.log(
+                  "the meal consumed and added to the daily meal plan! wait a few seconds"
+                );
+                setTimeout(() => {
+                  navigate("/summary");
+                }, 6000);
+              }}
+              className="btn btn-secondary"
+            >
+              Consume
+            </button>
+            <button type="submit" className="btn btn-primary">
+              Analyze
+            </button>
+          </div>
         </form>
       </div>
       <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div>

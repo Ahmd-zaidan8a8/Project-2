@@ -47,7 +47,7 @@ app.get("/nutrition-data", async (req, res) => {
       "https://api.edamam.com/api/nutrition-data",
       {
         params: {
-          app_id: "3c51ccf7",
+          app_id: "3c51ccf7", 
           app_key: "88486511d083c33640ce0bb1971028da",
           ingr: req.query.ingr,
         },
