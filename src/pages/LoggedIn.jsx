@@ -2,8 +2,10 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const LoggedIn = () => {
-  const { register, handleSubmit } = useForm();
+//prop sent from app.jsx
+const LoggedIn = ({setLoginData}) => {
+  
+  const {register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
   return (
@@ -14,6 +16,7 @@ const LoggedIn = () => {
             .post("http://localhost:5000/login", data)
             .then((res) => {
               console.log("sucess with logging in", res.data);
+              setLoginData(res.data); //setting prop value
               navigate("/");
             })
             .catch((err) => console.log("Error in logging in", err));

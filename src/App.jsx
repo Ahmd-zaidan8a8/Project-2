@@ -1,3 +1,4 @@
+import {useState} from "react"
 import { Routes, Route } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import Navbar from "./components/Navbar";
@@ -7,6 +8,9 @@ import LoggedIn from "./pages/LoggedIn";
 
 
 const App = () => {
+  const [loginData, setLoginData] = useState({});
+  
+
   return (
     <div>
       {/* <Navbar /> */}
@@ -14,8 +18,8 @@ const App = () => {
       {/* <Sidebar /> */}
 
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoggedIn />} />
+        <Route path="/" element={<HomePage loginData={loginData}/>} />
+        <Route path="/login" element={<LoggedIn setLoginData={setLoginData}/>} />
       </Routes>
 
       {/* <Footer /> */}

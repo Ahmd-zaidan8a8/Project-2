@@ -2,16 +2,19 @@ import { useState } from "react";
 import FoodInfo from "../components/FoodInfo";
 import { useForm } from "react-hook-form";
 import Summary from "./Summary";
+import UserInfoCardHome from "../components/UserInfoCardHome";
 
-const HomePage = () => {
+const HomePage = ({loginData}) => {
   const [isSubmitted, setSubmitted] = useState(false);
   const [ingr, setIngr] = useState("");
   const [isConsumed, setConsumed] = useState(false);
   const { register, handleSubmit } = useForm();
+  const {gender, height, id, userName, weight} = loginData;
 
   return (
     <div>
       <div className={isConsumed ? "d-none" : "d-flex justify-content-between"}>
+      <UserInfoCardHome gender={gender} height={height} id={id} userName={userName} weight={weight} />
         <div>
           <h2>Enter your ingredients: </h2>
           <small>Please enter each ingredient line by line.</small>
