@@ -2,12 +2,15 @@ import { useState } from "react";
 import FoodInfo from "../components/FoodInfo";
 import { useForm } from "react-hook-form";
 
+import UserInfoCardHome from "../components/UserInfoCardHome";
+
 const HomePage = () => {
   const [isSubmitted, setSubmitted] = useState(false);
   const [ingr, setIngr] = useState("");
   const { register, handleSubmit } = useForm();
 
   return (
+      
     <div className="d-flex justify-content-between">
       <div>
         <h2>Enter your ingredients: </h2>
@@ -33,6 +36,7 @@ const HomePage = () => {
       </div>
       <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div>
     </div>
+    
   );
 };
 
