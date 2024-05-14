@@ -4,7 +4,6 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Footer from "./components/Footer";
 import LoggedIn from "./pages/LoggedIn";
-import Summary from "./pages/Summary";
 
 
 const App = () => {
@@ -17,7 +16,6 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoggedIn />} />
-        <Route path="/summary" element={<Summary />} />
       </Routes>
 
       {/* <Footer /> */}

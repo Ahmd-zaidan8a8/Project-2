@@ -14,6 +14,7 @@ app.use(
 );
 
 const users = [];
+const consumedMeals = [];
 
 app.get("/", (req, res) => {
   res.send("Hello! , Ahmad");
@@ -60,6 +61,13 @@ app.get("/nutrition-data", async (req, res) => {
   }
 });
 
+app.post("/summary" , (req , res) => {
+  const meal = req.body;
+
+  consumedMeals.push(meal);
+  res.send("you have succesfully added a new meal in your daily plan" , meal);
+})
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`listining on port ${port}`));
 
@@ -75,17 +83,17 @@ function validateUser(user) {
 }
 
 
-axios.interceptors.request.use(function (config) {
-  console.log("Request:", config);
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
+// axios.interceptors.request.use(function (config) {
+//   console.log("Request:", config);
+//   return config;
+// }, function (error) {
+//   return Promise.reject(error);
+// });
 
-// Add response interceptor
-axios.interceptors.response.use(function (response) {
-  console.log("Response:", response);
-  return response;
-}, function (error) {
-  return Promise.reject(error);
-});
+// // Add response interceptor
+// axios.interceptors.response.use(function (response) {
+//   console.log("Response:", response);
+//   return response;
+// }, function (error) {
+//   return Promise.reject(error);
+// });
