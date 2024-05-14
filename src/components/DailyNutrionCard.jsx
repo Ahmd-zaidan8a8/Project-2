@@ -1,10 +1,15 @@
 
-function DailyNutritionCard( { nutritionDetails}) {
+function DailyNutritionCard({ nutritionDetails }) {
 
-    if(!nutritionDetails) {
+    if (!nutritionDetails) {
         return <div>Loading...</div>;
     }
     const { totalNutrients, totalDaily, calories } = nutritionDetails;
+
+    const roundToOneDecimal = (num) => {
+        return num.toFixed(1);
+    }
+
     return (
         <section id="dailyNutritionCard">
             <div>
@@ -13,82 +18,83 @@ function DailyNutritionCard( { nutritionDetails}) {
             <div>
                 <h3>Amount Per Serving</h3>
             </div>
-            <table class="table">
+            <table className="table">
                 <thead>
                     <tr>
                         <th scope="col">Calories</th>
                         <th scope="col">{calories}</th>
                     </tr>
+                    <tr>
+                    <th scope="col"></th>
+                    <th scope="col">% Daily Value</th>
+                    </tr>
+                    
                 </thead>
                 <tbody>
                     <tr>
-                        <th scope="row">Total Fat</th>
-                        {/* <td>{nutritionDetails} g</td> */}
-                        <td>{totalDaily.FAT.quantity} %</td>
+                        <th scope="row">Total Fat --- {roundToOneDecimal(totalNutrients.FAT.quantity)} g</th>
+                        <td>{roundToOneDecimal(totalDaily.FAT.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Saturated Fat</th>
-                        {/* <td>{nutritionDetails} g</td> */}
-                        <td>{totalDaily.FASAT.quantity} %</td>
+                        <th scope="row">Saturated Fat --- {roundToOneDecimal(totalNutrients.FASAT.quantity)} g</th>
+                        <td>{roundToOneDecimal(totalDaily.FASAT.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Trans Fat</th>
-                        {/* <td colspan="2">{nutritionDetails} g</td> */}
-                        <td></td>
+                        <th scope="row">Trans Fat --- {roundToOneDecimal(totalNutrients.FATRN.quantity)} g</th>
                     </tr>
                     <tr>
-                        <th scope="row">Cholesterol</th>
-                        {/* <td>{nutritionDetails} mg</td> */}
-                        <td>{totalDaily.CHOLE.quantity} %</td>
+                        <th scope="row">Cholesterol --- {roundToOneDecimal(totalNutrients.CHOLE.quantity)} g</th>
+
+                        <td>{roundToOneDecimal(totalDaily.CHOLE.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Sodium</th>
-                        {/* <td>{nutritionDetails} mg</td> */}
-                        <td>{totalDaily.NA.quantity} %</td>
+                        <th scope="row">Sodium --- {roundToOneDecimal(totalNutrients.NA.quantity)} g</th>
+
+                        <td>{roundToOneDecimal(totalDaily.NA.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Total Carbohydrates</th>
-                        {/* <td>{nutritionDetails} g</td> */}
-                        <td>{totalDaily.CHOCDF.quantity} %</td>
+                        <th scope="row">Total Carbohydrates --- {roundToOneDecimal(totalNutrients.CHOCDF.quantity)} g</th>
+                        <td>{roundToOneDecimal(totalDaily.CHOCDF.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Dietary Fiber</th>
-                        {/* <td>{nutritionDetails} g</td> */}
-                        <td>{totalDaily.FIBTG.quantity} %</td>
+                        <th scope="row">Dietary Fiber --- {roundToOneDecimal(totalNutrients.FIBTG.quantity)} g</th>
+
+                        <td>{roundToOneDecimal(totalDaily.FIBTG.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Total Sugars</th>
-                        {/* <td>{nutritionDetails} g</td> */}
-                        <td></td>
+                        <th scope="row">Total Sugars --- {roundToOneDecimal(totalNutrients.SUGAR.quantity)} g</th>
+
                     </tr>
                     <tr>
-                        <th scope="row">Protein</th>
-                        {/* <td>{nutritionDetails} g</td> */}
-                        <td>{totalDaily.PROCNT.quantity} %</td>
+                        <th scope="row">Protein --- {roundToOneDecimal(totalNutrients.PROCNT.quantity)} g</th>
+
+                        <td>{roundToOneDecimal(totalDaily.PROCNT.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Vitamin D</th>
-                        {/* <td>{nutritionDetails} ug</td> */}
-                        <td>{totalDaily.VITD.quantity} %</td>
+                        <th scope="row">Vitamin D --- {roundToOneDecimal(totalNutrients.VITD.quantity)} g</th>
+
+                        <td>{roundToOneDecimal(totalDaily.VITD.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Calcium</th>
-                        {/* <td>{nutritionDetails} mg</td> */}
-                        <td>{totalDaily.CA.quantity} %</td>
+                        <th scope="row">Calcium --- {roundToOneDecimal(totalNutrients.CA.quantity)} g</th>
+
+                        <td>{roundToOneDecimal(totalDaily.CA.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Iron</th>
-                        {/* <td>{nutritionDetails} mg</td> */}
-                        <td>{totalDaily.FE.quantity} %</td>
+                        <th scope="row">Iron --- {roundToOneDecimal(totalNutrients.FE.quantity)} g</th>
+
+                        <td>{roundToOneDecimal(totalDaily.FE.quantity)} %</td>
                     </tr>
                     <tr>
-                        <th scope="row">Potassium</th>
-                        {/* <td>{nutritionDetails} mg</td> */}
-                        <td>{totalDaily.K.quantity} %</td>
+                        <th scope="row">Potassium --- {roundToOneDecimal(totalNutrients.K.quantity)} g</th>
+
+                        <td>{roundToOneDecimal(totalDaily.K.quantity)} %</td>
                     </tr>
                 </tbody>
                 <tfoot className="tableFooter">
-                    <td>*Percent Daily Values are based on a 2000 calorie diet</td>
+                    <tr>
+                        <td>*Percent Daily Values are based on a 2000 calorie diet</td>
+                    </tr>
                 </tfoot>
             </table>
         </section>
