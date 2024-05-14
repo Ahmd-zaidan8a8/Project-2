@@ -3,18 +3,42 @@ import FoodInfo from "../components/FoodInfo";
 import { useForm } from "react-hook-form";
 import Summary from "./Summary";
 import UserInfoCardHome from "../components/UserInfoCardHome";
+import SummaryList from "./SummaryList";
 
-const HomePage = ({loginData}) => {
+const HomePage = ({ loginData }) => {
+  const [mealCount , setMealCount] = useState(0);
+  const [dailyCalories, setDailyCalories] = useState(0);
   const [isSubmitted, setSubmitted] = useState(false);
   const [ingr, setIngr] = useState("");
   const [isConsumed, setConsumed] = useState(false);
   const { register, handleSubmit } = useForm();
-  const {gender, height, id, userName, weight} = loginData;
+
+  const { gender, height, id, userName, weight } = loginData;
+
+  const calcCalories = (weight, height) => {
+    let BMR = 0;
+    let burn = 0;
+    if (gender === "Male") {
+      BMR = 10 * weight + 6.25 * height - 5 * 30 + 5; //age shoudld be in place for 30
+      burn = BMR * 1.2;
+    } else {
+      BMR = 10 * weight + 6.25 * height - 5 * 30 - 161; // age should be in place for 30
+      burn = BMR * 1.2;
+    }
+
+    return burn;
+  };
 
   return (
     <div>
       <div className={isConsumed ? "d-none" : "d-flex justify-content-between"}>
-      <UserInfoCardHome gender={gender} height={height} id={id} userName={userName} weight={weight} />
+        <UserInfoCardHome
+          gender={gender}
+          height={height}
+          id={id}
+          userName={userName}
+          weight={weight}
+        />
         <div>
           <h2>Enter your ingredients: </h2>
           <small>Please enter each ingredient line by line.</small>
@@ -32,17 +56,15 @@ const HomePage = ({loginData}) => {
                 id="ingr"
               ></textarea>
             </div>
-            <div className="d-flex justify-content-evenly">
-              <button
-                type="submit"
+
+            <div className="d-felx jsutify-content-start">
+              <button type="submit"
                 onClick={() => {
-                  console.log(
-                    "the meal consumed and added to the daily meal plan! wait a few seconds"
-                  );
-                  // TODO:increase the time
                   setTimeout(() => {
+                    setDailyCalories(calcCalories(weight, height));
+                    setMealCount(mealCount + 1);
                     setConsumed(true);
-                  }, 3000);
+                  }, 2000);
                 }}
                 className="btn btn-secondary"
               >
@@ -54,9 +76,12 @@ const HomePage = ({loginData}) => {
             </div>
           </form>
         </div>
-        <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div>
+        {/* <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div> */}
       </div>
-      <div>{isConsumed && <Summary />}</div>
+      {isConsumed && <SummaryList dailyCalories={dailyCalories} ingr={ingr} mealCount={mealCount} />}
+      <div className="my-4"><button onClick={() => {
+        setConsumed(false);
+      }} className="btn btn-secondary">Back to Home Page</button></div>
     </div>
   );
 };

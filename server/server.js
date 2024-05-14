@@ -1,7 +1,8 @@
 const Joi = require("joi");
 const express = require("express");
 const cors = require("cors");
-const axios = require('axios')
+const axios = require("axios");
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
 
@@ -48,7 +49,7 @@ app.get("/nutrition-data", async (req, res) => {
       "https://api.edamam.com/api/nutrition-data",
       {
         params: {
-          app_id: "3c51ccf7", 
+          app_id: "3c51ccf7",
           app_key: "88486511d083c33640ce0bb1971028da",
           ingr: req.query.ingr,
         },
@@ -57,16 +58,26 @@ app.get("/nutrition-data", async (req, res) => {
     res.send(response.data);
   } catch (error) {
     console.log("Error", error.message);
-    res.status(500).send('internal server error');
+    res.status(500).send("internal server error");
   }
 });
 
-app.post("/summary" , (req , res) => {
-  const meal = req.body;
+app.post("/summarylist", (req, res) => {
+  const newMeal = {
+    id: uuidv4(),
+    info: req.body,
+  };
 
-  consumedMeals.push(meal);
-  res.send("you have succesfully added a new meal in your daily plan" , meal);
-})
+  consumedMeals.push(newMeal);
+
+  res
+    .status(200)
+    .json({
+      message: "You have successfully added a new meal in your daily plan",
+      mealInfo: newMeal,
+    });
+  console.log("send the new meal..");
+});
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`listining on port ${port}`));
@@ -82,18 +93,22 @@ function validateUser(user) {
   return schema.validate(user);
 }
 
+axios.interceptors.request.use(
+  function (config) {
+    console.log("Request:", config);
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
-// axios.interceptors.request.use(function (config) {
-//   console.log("Request:", config);
-//   return config;
-// }, function (error) {
-//   return Promise.reject(error);
-// });
-
-// // Add response interceptor
-// axios.interceptors.response.use(function (response) {
-//   console.log("Response:", response);
-//   return response;
-// }, function (error) {
-//   return Promise.reject(error);
-// });
+axios.interceptors.response.use(
+  function (response) {
+    console.log("Response:", response);
+    return response;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
