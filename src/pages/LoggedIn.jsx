@@ -9,8 +9,11 @@ const LoggedIn = ({setLoginData}) => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <form
+       
+    <div className="container-fluid w-50">
+    <h1 className="d-flex justify-content-center mb-3 shadow-lg bg-primary p-1 rounded text-white">Let's Get Started</h1>
+      <p className="d-flex justify-content-center mb-3">Please enter your health information below</p>
+      <form className="shadow-lg p-4 radius rounded"
         onSubmit={handleSubmit((data) => {
           axios
             .post("http://localhost:5000/login", data)
@@ -23,6 +26,7 @@ const LoggedIn = ({setLoginData}) => {
         })}
       >
         <div className="mb-3">
+          <label htmlFor="gender" className="form-label me-2">Select your gender</label>
           <select {...register("gender")} name="gender" id="gender">
             <option value=""></option>
             <option value="Male">Male</option>
@@ -43,7 +47,7 @@ const LoggedIn = ({setLoginData}) => {
         </div>
         <div className="mb-3">
           <label htmlFor="height" className="form-label">
-            Height
+            Height cm
           </label>
           <input
             {...register("height")}
@@ -54,7 +58,7 @@ const LoggedIn = ({setLoginData}) => {
         </div>
         <div className="mb-3">
           <label htmlFor="weight" className="form-label">
-            Weight
+            Weight kg
           </label>
           <input
             {...register("weight")}
