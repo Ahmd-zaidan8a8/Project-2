@@ -7,6 +7,7 @@ const SummaryList = () => {
   const [meals, setMeals] = useState([]);
 
   const [isDeleted, setDeleted] = useState(false);
+  
 
   const handleDelete = (mealId) => {
     const newMeals = meals.filter((meal) => meal.id !== mealId);
@@ -15,9 +16,10 @@ const SummaryList = () => {
 
     apiServer
       .delete(`/summarylist/${mealId}`)
-      .then((res) => console.log(res.data))
       .catch((err) => setError(err.message));
   };
+
+  
 
   const displayAlert = () => {
     setDeleted(true);
@@ -29,7 +31,7 @@ const SummaryList = () => {
   useEffect(() => {
     apiServer
       .get("/summarylist")
-      // .then((res) => setMeals(res.data.meals))
+      .then((res) => setMeals(res.data.meals))
       .catch((err) => setError(err.message));
   }, []);
 

@@ -23,6 +23,8 @@ const HomePage = ({ loginData }) => {
       });
   };
 
+  
+
   const [isSubmitted, setSubmitted] = useState(false);
   const [isConsumed, setConsumed] = useState(false);
   const { register, handleSubmit, reset } = useForm();
@@ -60,12 +62,14 @@ const HomePage = ({ loginData }) => {
     setConsumed(true);
   };
 
-  if (error) {
+  if(error){
     return <p className="text-danger">{error}</p>;
   }
 
+  
   return (
     <div>
+
       <div className={isConsumed ? "d-none" : "d-flex justify-content-between"}>
         <UserInfoCardHome
           gender={gender}

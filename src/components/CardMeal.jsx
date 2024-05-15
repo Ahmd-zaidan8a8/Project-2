@@ -1,10 +1,14 @@
-import apiServer from "../services/api-server";
-
 const CardMeal = ({ meal, index, onDelete }) => {
   const { id, dailyCalories, ingr } = meal;
+  const handleClick = () => {
+    // display a form for the user to change the info
+    // recive this info and use it as a new elements in the meal.ingr array
+    // send a request to the server to update the item there
+    // handle upcoming error from the server
+  };
 
   return (
-    <div className="container d-flex">
+    <div className="container d-flex text-center">
       <div className="card mb-3" style={{ width: "18rem" }}>
         <div className="card-body">
           <h5 className="card-title">Meal {index + 1}</h5>
@@ -16,9 +20,14 @@ const CardMeal = ({ meal, index, onDelete }) => {
           <div className="card-footer text-body-secondary">
             Total calories: {dailyCalories}
           </div>
-          <button onClick={() => onDelete(id)} className="btn btn-danger">
-            Delete
-          </button>
+          <div className="d-flex justify-content-around">
+            <button onClick={() => handleClick()} className="btn btn-info">
+              update
+            </button>
+            <button onClick={() => onDelete(id)} className="btn btn-danger">
+              Delete
+            </button>
+          </div>
         </div>
       </div>
     </div>
