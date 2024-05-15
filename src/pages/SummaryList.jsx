@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import apiServer from "../services/api-server";
 import CardMeal from "../components/CardMeal";
 
-const SummaryList = ({handleUpdateForm}) => {
+const SummaryList = () => {
   const [error, setError] = useState("");
   const [meals, setMeals] = useState([]);
-
   const [isDeleted, setDeleted] = useState(false);
-  
+
+  const handleUpdateForm = (mealId, newMeal) => {
+    const newMeals = meals.map((meal) => (meal.id === mealId ? newMeal : meal));
+    setMeals(newMeals);
+  };
 
   const handleDelete = (mealId) => {
     const newMeals = meals.filter((meal) => meal.id !== mealId);
@@ -18,8 +21,6 @@ const SummaryList = ({handleUpdateForm}) => {
       .delete(`/summarylist/${mealId}`)
       .catch((err) => setError(err.message));
   };
-
-  
 
   const displayAlert = () => {
     setDeleted(true);
@@ -52,7 +53,7 @@ const SummaryList = ({handleUpdateForm}) => {
           return (
             <div>
               <CardMeal
-                key={index}
+                key={meal.id}
                 meal={meal}
                 index={index}
                 onDelete={handleDelete}

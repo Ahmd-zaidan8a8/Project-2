@@ -7,23 +7,8 @@ import apiServer from "../services/api-server";
 
 const HomePage = ({ loginData }) => {
   const [meals, setMeals] = useState([]);
-  const [meal, setMeal] = useState({
-    dailyCalories: 0,
-    ingr: "",
-  });
 
   const [error, setError] = useState("");
-
-  const createNewMeal = (meal) => {
-    apiServer
-      .post("/summarylist", meal)
-      .then((res) => console.log(res.data))
-      .catch((err) => {
-        setError(err.message);
-      });
-  };
-
-  
 
   const [isSubmitted, setSubmitted] = useState(false);
   const [isConsumed, setConsumed] = useState(false);
@@ -52,34 +37,33 @@ const HomePage = ({ loginData }) => {
     return ingrArr;
   }
 
-  // lifting the state up
-  const handleUpdateForm = (newIngr) => {
-    const newMeal = {
-      ...meal,
-      ingr: splitIngr(newIngr)
-    }
-    setMeal(newMeal);
-  }
-  
+  const createNewMeal = (meal) => {
+    apiServer
+      .post("/summarylist", meal)
+      .then((res) => console.log(res.data))
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
   const onSubmit = (ingr) => {
     const newMeal = {
       dailyCalories: calcCalories(weight, height),
       ingr: splitIngr(ingr),
     };
-    setMeal(newMeal);
-    setMeals([newMeal, ...meals]);
+
     createNewMeal(newMeal);
+
+    setMeals([newMeal, ...meals]);
     setConsumed(true);
   };
 
-  if(error){
+  if (error) {
     return <p className="text-danger">{error}</p>;
   }
 
-  
   return (
     <div>
-
       <div className={isConsumed ? "d-none" : "d-flex justify-content-between"}>
         <UserInfoCardHome
           gender={gender}
@@ -121,7 +105,7 @@ const HomePage = ({ loginData }) => {
       </div>
       {isConsumed && (
         <div>
-          <SummaryList handleUpdateForm={handleUpdateForm} />
+          <SummaryList />
           <div className="my-4">
             <button
               onClick={() => {

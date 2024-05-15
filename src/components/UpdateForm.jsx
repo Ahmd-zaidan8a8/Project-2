@@ -1,19 +1,30 @@
 import { useForm } from "react-hook-form";
+import apiServer from "../services/api-server";
 
-const UpdateForm = ({ meal , handleUpdateForm , setUpdateForm}) => {
+const UpdateForm = ({ setUpdateForm, id, handleUpdateForm }) => {
   const { register, handleSubmit } = useForm();
 
-//   const onSubmit = (newIngr) => {
-//     const newMeal = { ...meal, ingr: newIngr };
-//   };
+  function splitIngr(ingr) {
+    let ingrArr = ingr.split("\n");
+    return ingrArr;
+  }
+
   return (
     <div className="my-3">
       <form
         onSubmit={handleSubmit(({ newIngr }) => {
-          handleUpdateForm(newIngr);
-          setUpdateForm(false)
-          console.log(meal.ingr);
-          console.log(newIngr);
+          setUpdateForm(false);
+
+          const updatedMeal = {
+            ingr: splitIngr(newIngr),
+          };
+
+          handleUpdateForm(id, updatedMeal);
+
+          apiServer
+            .put(`/summarylist/${id}`, updatedMeal)
+            .then((res) => console.log(res.data))
+            .catch((err) => console.log(err.message));
         })}
       >
         <div className="form-floating my-2">
