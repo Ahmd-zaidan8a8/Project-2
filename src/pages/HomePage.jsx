@@ -16,7 +16,9 @@ const HomePage = ({ loginData }) => {
   const [isConsumed, setConsumed] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  const { gender, height, id, userName, weight } = loginData;
+  // TODO: remove the default values
+
+  const { gender, height=192, id, userName, weight=80 } = loginData;
 
   const calcCalories = (weight, height) => {
     let BMR = 0;
@@ -43,7 +45,7 @@ const HomePage = ({ loginData }) => {
       mealCount: meal.mealCount + 1,
     };
     setMeal(newMeal);
-    setMeals([...meals, newMeal]);
+    setMeals([newMeal , ...meals]);
     setConsumed(true);
   };
 
@@ -90,7 +92,7 @@ const HomePage = ({ loginData }) => {
       </div>
       {isConsumed && (
         <div>
-          <SummaryList meal={meal} meals={meals} />
+          <SummaryList meal={meal} meals={meals} setMeals={setMeals} />
           <div className="my-4">
             <button
               onClick={() => {
