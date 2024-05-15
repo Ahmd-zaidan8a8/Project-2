@@ -1,5 +1,7 @@
-const CardMeal = ({ meal , index }) => {
-  const { dailyCalories, ingr } = meal;
+import apiServer from "../services/api-server";
+
+const CardMeal = ({ meal, index, onDelete }) => {
+  const { id, dailyCalories, ingr } = meal;
 
   return (
     <div className="container d-flex">
@@ -14,7 +16,9 @@ const CardMeal = ({ meal , index }) => {
           <div className="card-footer text-body-secondary">
             Total calories: {dailyCalories}
           </div>
-          <button className="btn btn-danger">Delete</button>
+          <button onClick={() => onDelete(id)} className="btn btn-danger">
+            Delete
+          </button>
         </div>
       </div>
     </div>

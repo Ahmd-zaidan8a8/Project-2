@@ -12,30 +12,16 @@ const HomePage = ({ loginData }) => {
     ingr: "",
   });
 
-  const [error , setError] = useState("");
+  const [error, setError] = useState("");
 
   const createNewMeal = (meal) => {
-    const orignalMealsList = [...meals];
-    apiServer.post('/summarylist' , meal)
-      .then(res => console.log(res.data))
-      .catch(err => {
+    apiServer
+      .post("/summarylist", meal)
+      .then((res) => console.log(res.data))
+      .catch((err) => {
         setError(err.message);
-        setMeals(orignalMealsList);
       });
-  }
-
-
-
-  // useEffect(() => {
-  //   apiServer
-  //     .post("/summarylist", meal)
-  //     .then((res) => {
-  //       setMeals([res.data.mealInfo, ...meals]);
-  //     })
-  //     .catch((err) => {
-  //       setError(err.message);
-  //     });
-  // }, []);
+  };
 
   const [isSubmitted, setSubmitted] = useState(false);
   const [isConsumed, setConsumed] = useState(false);
@@ -43,7 +29,7 @@ const HomePage = ({ loginData }) => {
 
   // TODO: remove the default values
 
-  const { gender, height=192, id, userName, weight=80 } = loginData;
+  const { gender, height = 192, id, userName, weight = 80 } = loginData;
 
   const calcCalories = (weight, height) => {
     let BMR = 0;
@@ -69,10 +55,14 @@ const HomePage = ({ loginData }) => {
       ingr: splitIngr(ingr),
     };
     setMeal(newMeal);
-    setMeals([newMeal , ...meals]);
+    setMeals([newMeal, ...meals]);
     createNewMeal(newMeal);
     setConsumed(true);
   };
+
+  if (error) {
+    return <p className="text-danger">{error}</p>;
+  }
 
   return (
     <div>
