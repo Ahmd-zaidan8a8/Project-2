@@ -1,18 +1,24 @@
 import { useForm } from "react-hook-form";
 
-const UpdateForm = ({meal}) => {
+const UpdateForm = ({ meal , handleUpdateForm , setUpdateForm}) => {
   const { register, handleSubmit } = useForm();
-  const {ingr} = meal;
 
-  const onSubmit = () => {
-
-  }
+//   const onSubmit = (newIngr) => {
+//     const newMeal = { ...meal, ingr: newIngr };
+//   };
   return (
-    <div>
-      <form onSubmit={handleSubmit(data => console.log(data))}>
+    <div className="my-3">
+      <form
+        onSubmit={handleSubmit(({ newIngr }) => {
+          handleUpdateForm(newIngr);
+          setUpdateForm(false)
+          console.log(meal.ingr);
+          console.log(newIngr);
+        })}
+      >
         <div className="form-floating my-2">
           <textarea
-            {...register("ingr")}
+            {...register("newIngr")}
             className="form-control"
             id="ingr"
           ></textarea>

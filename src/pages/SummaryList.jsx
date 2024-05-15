@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import apiServer from "../services/api-server";
 import CardMeal from "../components/CardMeal";
 
-const SummaryList = () => {
+const SummaryList = ({handleUpdateForm}) => {
   const [error, setError] = useState("");
   const [meals, setMeals] = useState([]);
 
@@ -44,7 +44,7 @@ const SummaryList = () => {
           <div className="alert alert-danger" role="alert">
             you successfully removed a Meal !
           </div>
-          <button className="btn btn-info">show info</button>
+          {/* <button className="btn btn-info">show info</button> */}
         </div>
       )}
       {meals.length !== 0 &&
@@ -56,6 +56,7 @@ const SummaryList = () => {
                 meal={meal}
                 index={index}
                 onDelete={handleDelete}
+                handleUpdateForm={handleUpdateForm}
               />
             </div>
           );

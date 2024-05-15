@@ -1,11 +1,28 @@
-const CardMeal = ({ meal, index, onDelete }) => {
+import { useState } from "react";
+import UpdateForm from "./UpdateForm";
+
+const CardMeal = ({ meal, index, onDelete , handleUpdateForm }) => {
   const { id, dailyCalories, ingr } = meal;
+
+  const [showUpdaterForm , setUpdaterForm] = useState(false);
+
   const handleClick = () => {
     // display a form for the user to change the info
+    setUpdaterForm(true);
+
     // recive this info and use it as a new elements in the meal.ingr array
+
     // send a request to the server to update the item there
     // handle upcoming error from the server
   };
+
+  if(showUpdaterForm) {
+    return (
+      <div>
+        <UpdateForm meal={meal} handleUpdateForm={handleUpdateForm} setUpdateForm={setUpdaterForm} />
+      </div>
+    )
+  }
 
   return (
     <div className="container d-flex text-center">

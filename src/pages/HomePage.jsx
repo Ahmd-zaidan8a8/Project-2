@@ -51,6 +51,16 @@ const HomePage = ({ loginData }) => {
     let ingrArr = ingr.split("\n");
     return ingrArr;
   }
+
+  // lifting the state up
+  const handleUpdateForm = (newIngr) => {
+    const newMeal = {
+      ...meal,
+      ingr: splitIngr(newIngr)
+    }
+    setMeal(newMeal);
+  }
+  
   const onSubmit = (ingr) => {
     const newMeal = {
       dailyCalories: calcCalories(weight, height),
@@ -111,7 +121,7 @@ const HomePage = ({ loginData }) => {
       </div>
       {isConsumed && (
         <div>
-          <SummaryList />
+          <SummaryList handleUpdateForm={handleUpdateForm} />
           <div className="my-4">
             <button
               onClick={() => {
