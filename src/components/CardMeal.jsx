@@ -1,14 +1,14 @@
-const CardMeal = ({ meal }) => {
-  const { mealCount, dailyCalories, ingr } = meal;
+const CardMeal = ({ meal , index }) => {
+  const { dailyCalories, ingr } = meal;
 
   return (
     <div className="container d-flex">
       <div className="card mb-3" style={{ width: "18rem" }}>
         <div className="card-body">
-          <h5 className="card-title">Meal {mealCount}</h5>
+          <h5 className="card-title">Meal {index + 1}</h5>
           <ul className="list-group-item" style={{ listStyleType: "none" }}>
             {ingr.map((ing) => (
-              <li key={mealCount}>{ing}</li>
+              <li key={index}>{ing}</li>
             ))}
           </ul>
           <div className="card-footer text-body-secondary">

@@ -3,14 +3,39 @@ import FoodInfo from "../components/FoodInfo";
 import { useForm } from "react-hook-form";
 import UserInfoCardHome from "../components/UserInfoCardHome";
 import SummaryList from "./SummaryList";
+import apiServer from "../services/api-server";
 
 const HomePage = ({ loginData }) => {
   const [meals, setMeals] = useState([]);
   const [meal, setMeal] = useState({
-    mealCount: 0,
     dailyCalories: 0,
     ingr: "",
   });
+
+  const [error , setError] = useState("");
+
+  const createNewMeal = (meal) => {
+    const orignalMealsList = [...meals];
+    apiServer.post('/summarylist' , meal)
+      .then(res => console.log(res.data))
+      .catch(err => {
+        setError(err.message);
+        setMeals(orignalMealsList);
+      });
+  }
+
+
+
+  // useEffect(() => {
+  //   apiServer
+  //     .post("/summarylist", meal)
+  //     .then((res) => {
+  //       setMeals([res.data.mealInfo, ...meals]);
+  //     })
+  //     .catch((err) => {
+  //       setError(err.message);
+  //     });
+  // }, []);
 
   const [isSubmitted, setSubmitted] = useState(false);
   const [isConsumed, setConsumed] = useState(false);
@@ -42,10 +67,10 @@ const HomePage = ({ loginData }) => {
     const newMeal = {
       dailyCalories: calcCalories(weight, height),
       ingr: splitIngr(ingr),
-      mealCount: meal.mealCount + 1,
     };
     setMeal(newMeal);
     setMeals([newMeal , ...meals]);
+    createNewMeal(newMeal);
     setConsumed(true);
   };
 
@@ -92,7 +117,7 @@ const HomePage = ({ loginData }) => {
       </div>
       {isConsumed && (
         <div>
-          <SummaryList meal={meal} meals={meals} setMeals={setMeals} />
+          <SummaryList />
           <div className="my-4">
             <button
               onClick={() => {
