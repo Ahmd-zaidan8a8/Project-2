@@ -6,15 +6,11 @@ import SummaryList from "./SummaryList";
 
 const HomePage = ({ loginData }) => {
   const [meals, setMeals] = useState([]);
-  
-  
   const [meal, setMeal] = useState({
     mealCount: 0,
     dailyCalories: 0,
     ingr: "",
   });
-
-  
 
   const [isSubmitted, setSubmitted] = useState(false);
   const [isConsumed, setConsumed] = useState(false);
@@ -41,14 +37,15 @@ const HomePage = ({ loginData }) => {
     return ingrArr;
   }
   const onSubmit = (ingr) => {
-    setMeal({
+    const newMeal = {
       dailyCalories: calcCalories(weight, height),
       ingr: splitIngr(ingr),
       mealCount: meal.mealCount + 1,
-    });
+    };
+    setMeal(newMeal);
+    setMeals([...meals, newMeal]);
     setConsumed(true);
   };
-  
 
   return (
     <div>
@@ -80,10 +77,7 @@ const HomePage = ({ loginData }) => {
             </div>
 
             <div className="d-felx jsutify-content-start">
-              <button
-                type="submit"
-                className="btn btn-secondary"
-              >
+              <button type="submit" className="btn btn-secondary">
                 Add to Mealplan
               </button>
               <button type="submit" className="btn btn-primary">
@@ -96,7 +90,7 @@ const HomePage = ({ loginData }) => {
       </div>
       {isConsumed && (
         <div>
-          <SummaryList meal={meal} setMeals={setMeals} meals={meals}/>
+          <SummaryList meal={meal} meals={meals} />
           <div className="my-4">
             <button
               onClick={() => {

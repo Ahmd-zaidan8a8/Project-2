@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import apiServer from "../services/api-server";
 import CardMeal from "../components/CardMeal";
 
-const SummaryList = ({ meal, setMeals, meals }) => {
-  useEffect(() => {
-    setMeals([...meals, meal]);
-  }, []);
-
+const SummaryList = ({ meal, meals }) => {
+  console.log(meal);
+  console.log(meals);
   useEffect(() => {
     apiServer
       .post("/summarylist", meal)
