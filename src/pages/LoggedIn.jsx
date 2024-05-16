@@ -1,32 +1,49 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import apiServer from "../services/api-server";
+import { useState } from "react";
 
 //prop sent from app.jsx
-const LoggedIn = ({setLoginData}) => {
-  
-  const {register, handleSubmit } = useForm();
+const LoggedIn = ({ setLoginData, setUserSubmit }) => {
+  const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
+  const [error, setError] = useState("");
+
+  const onSubmit = (data) => {
+    apiServer
+      .post("/login", data)
+      .then((res) => {
+        console.log("sucess with logging in", res.data);
+        setLoginData(res.data);
+        navigate("/");
+      })
+      .catch((err) => setError(err.message));
+  };
 
   return (
-       
-    <div className="container w-50 mt-5" >
-    <h1 className="d-flex justify-content-center mb-3 bg-gradient shadow-lg bg-primary p-1 rounded text-white">Let's Get Started</h1>
-      <p className="d-flex justify-content-center mb-3">Please enter your health information below</p>
-      <form className="shadow-lg p-4 radius rounded"
+    <div className="container w-50 mt-5">
+      {error && (
+        <div class="alert alert-danger" role="alert">
+          {error}
+        </div>
+      )}
+      <h1 className="d-flex justify-content-center mb-3 bg-gradient shadow-lg bg-primary p-1 rounded text-white">
+        Let's Get Started
+      </h1>
+      <p className="d-flex justify-content-center mb-3">
+        Please enter your health information below
+      </p>
+      <form
+        className="shadow-lg p-4 radius rounded"
         onSubmit={handleSubmit((data) => {
-          apiServer
-            .post("/login", data)
-            .then((res) => {
-              console.log("sucess with logging in", res.data);
-              setLoginData(res.data); 
-              navigate("/");
-            })
-            .catch((err) => console.log("Error in logging in", err));
+          onSubmit(data);
+          setUserSubmit(true);
         })}
       >
         <div className="mb-3">
-          <label htmlFor="gender" className="form-label me-2">Select your gender</label>
+          <label htmlFor="gender" className="form-label me-2">
+            Select your gender
+          </label>
           <select {...register("gender")} name="gender" id="gender">
             <option value=""></option>
             <option value="Male">Male</option>

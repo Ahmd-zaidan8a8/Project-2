@@ -1,7 +1,7 @@
 import { useState } from "react";
 import UpdateForm from "./UpdateForm";
 
-const CardMeal = ({ meal, index, onDelete, handleUpdateForm }) => {
+const CardMeal = ({ meal, index, onDelete, handleUpdateForm}) => {
   const { id, dailyCalories, ingr } = meal;
 
   const [showUpdaterForm, setUpdaterForm] = useState(false);
@@ -13,6 +13,7 @@ const CardMeal = ({ meal, index, onDelete, handleUpdateForm }) => {
           id={id}
           setUpdateForm={setUpdaterForm}
           handleUpdateForm={handleUpdateForm}
+          
         />
       </div>
     );

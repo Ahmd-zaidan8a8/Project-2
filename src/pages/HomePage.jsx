@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import UserInfoCardHome from "../components/UserInfoCardHome";
 import SummaryList from "./SummaryList";
 import DailyNutritionCard from "../components/DailyNutrionCard";
 import apiServer from "../services/api-server";
+import { useNavigate } from "react-router-dom";
 
-const HomePage = ({ loginData }) => {
+const HomePage = ({ loginData , userSubmit}) => {
   const [meals, setMeals] = useState([]);
+
+  const navigate = useNavigate();
 
   const [error, setError] = useState("");
 
@@ -14,25 +17,16 @@ const HomePage = ({ loginData }) => {
 
   const [apiResponse, setApiResponse] = useState(null);
 
-  const [isSubmitted, setSubmitted] = useState(false);
+  const [showNutritionCard, setShowNutritionCard] = useState(false);
+
   const [isConsumed, setConsumed] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  const { gender, height = 192, id, userName, weight = 80 } = loginData;
+  const [caloriesPerMeal, setCaloriesPerMeal] = useState(0);
 
-  const calcCalories = (weight, height) => {
-    let BMR = 0;
-    let burn = 0;
-    if (gender === "Male") {
-      BMR = 10 * weight + 6.25 * height - 5 * 30 + 5;
-      burn = BMR * 1.2;
-    } else {
-      BMR = 10 * weight + 6.25 * height - 5 * 30 - 161;
-      burn = BMR * 1.2;
-    }
-
-    return burn;
-  };
+  useEffect(() => {
+    if (!userSubmit) navigate("/login");
+  }, []);
 
   function splitIngr(ingr) {
     let ingrArr = ingr.split("\n");
@@ -53,6 +47,7 @@ const HomePage = ({ loginData }) => {
       .get(`/nutrition-data?ingr=${ingr}`)
       .then((response) => {
         console.log("Response:", response.data);
+        setCaloriesPerMeal(response.data.calories);
         setApiResponse(response.data);
       })
       .catch((error) => {
@@ -60,9 +55,10 @@ const HomePage = ({ loginData }) => {
       });
   };
 
-  const onSubmit = (ingr) => {
+  const submittAddToMealPlan = (ingr) => {
+    setBurn(calcCalories(weight, height));
     const newMeal = {
-      dailyCalories: calcCalories(weight, height),
+      dailyCalories: Math.round(caloriesPerMeal),
       ingr: splitIngr(ingr),
     };
 
@@ -85,13 +81,7 @@ const HomePage = ({ loginData }) => {
             : "d-flex flex-column w-50 shadow-lg rounded p-3"
         }
       >
-        <UserInfoCardHome
-          gender={gender}
-          height={height}
-          id={id}
-          userName={userName}
-          weight={weight}
-        />
+        <UserInfoCardHome loginData={loginData} />
         <div>
           <h2>Enter your ingredients: </h2>
           <small>
@@ -102,10 +92,11 @@ const HomePage = ({ loginData }) => {
             onSubmit={handleSubmit(({ ingr }) => {
               if (analyze) {
                 getFoodInf(ingr);
-                setSubmitted(true);
-                reset();
+                setShowNutritionCard(true);
               } else {
-                onSubmit(ingr);
+                submittAddToMealPlan(ingr);
+                reset();
+                setShowNutritionCard(false);
               }
             })}
           >
@@ -125,13 +116,21 @@ const HomePage = ({ loginData }) => {
               >
                 Analyze
               </button>
-              <button type="submit" className="btn btn-secondary ms-2">
+              <button
+                onClick={() => setAnalyze(false)}
+                type="submit"
+                className="btn btn-secondary ms-2"
+              >
                 Add to Mealplan
               </button>
             </div>
           </form>
         </div>
-        <div>{isSubmitted && <DailyNutritionCard nutritionDetails={apiResponse} />}</div>
+        <div>
+          {showNutritionCard && (
+            <DailyNutritionCard nutritionDetails={apiResponse} />
+          )}
+        </div>
       </div>
       {isConsumed && (
         <div>

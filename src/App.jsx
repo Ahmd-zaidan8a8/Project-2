@@ -10,6 +10,7 @@ import SummaryList from "./pages/SummaryList";
 
 const App = () => {
   const [loginData, setLoginData] = useState({});
+  const [userSubmit , setUserSubmit] = useState(false);
   
 
   return (
@@ -19,8 +20,8 @@ const App = () => {
       <Sidebar />
 
       <Routes>
-        <Route path="/" element={<HomePage loginData={loginData}/>} />
-        <Route path="/login" element={<LoggedIn setLoginData={setLoginData}/>} />
+        <Route path="/" element={<HomePage loginData={loginData} userSubmit={userSubmit}/>} />
+        <Route path="/login" element={<LoggedIn setLoginData={setLoginData} setUserSubmit={setUserSubmit}/>} />
         <Route path="/summarylist" element={<SummaryList/>} />
       </Routes>
 

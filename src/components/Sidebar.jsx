@@ -6,7 +6,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   // Define pages where the sidebar should be hidden
-  const pagesWithHiddenSidebar = ['/login'];
+  const pagesWithHiddenSidebar = ['/login' , '/summarylist'];
 
   // Determine if the sidebar should be hidden based on the current route
   const isSidebarHidden = pagesWithHiddenSidebar.includes(location.pathname);
@@ -17,12 +17,12 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar list-group fw-bold bg-secondary text-center text-wrap shadow-lg border border-1 border-dark">
-      <Link to="/login" className="sidebarLinks list-group-item list-group-item-action p-1 text-white">Login</Link>
-      <Link to="summary"className="sidebarLinks list-group-item list-group-item-action p-1 text-white">Meal Summary</Link>
-      <Link className="sidebarLinks list-group-item list-group-item-action p-1 text-white">Content Library</Link>
-      <Link to="/aboutus" className="sidebarLinks list-group-item list-group-item-action p-1 text-white">About us</Link>
+      <Link to="/login" className="sidebarLinks list-group-item list-group-item-action p-1">Login</Link>
+      <Link to="/summarylist"className="sidebarLinks list-group-item list-group-item-action p-1">Meal Summary</Link>
+      <Link className="sidebarLinks list-group-item list-group-item-action p-1">Content Library</Link>
+      <Link to="/aboutus" className="sidebarLinks list-group-item list-group-item-action p-1">About us</Link>
       
-      <Link className="sidebarLinks list-group-item list-group-item-action p-1 text-white hover">Learn More</Link>
+      <Link className="sidebarLinks list-group-item list-group-item-action p-1">Learn More</Link>
       </div>
   )
 }
