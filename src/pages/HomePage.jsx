@@ -11,11 +11,14 @@ const HomePage = ({ loginData }) => {
 
   const [error, setError] = useState("");
 
+  const [ingr, setIngr] = useState("");
+  const [analyze, setAnalyze] = useState(false);
+
   const [isSubmitted, setSubmitted] = useState(false);
   const [isConsumed, setConsumed] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  const { gender, height, id, userName, weight } = loginData;
+  const { gender, height = 192, id, userName, weight = 80 } = loginData;
 
   const calcCalories = (weight, height) => {
     let BMR = 0;
@@ -24,7 +27,7 @@ const HomePage = ({ loginData }) => {
       BMR = 10 * weight + 6.25 * height - 5 * 30 + 5;
       burn = BMR * 1.2;
     } else {
-      BMR = 10 * weight + 6.25 * height - 5 * 30 - 161; 
+      BMR = 10 * weight + 6.25 * height - 5 * 30 - 161;
       burn = BMR * 1.2;
     }
 
@@ -63,7 +66,13 @@ const HomePage = ({ loginData }) => {
 
   return (
     <div className="w-100 d-flex justify-content-center mt-4">
-      <div className={isConsumed ? "d-none" : "d-flex flex-column w-50 shadow-lg rounded p-3"}> 
+      <div
+        className={
+          isConsumed
+            ? "d-none"
+            : "d-flex flex-column w-50 shadow-lg rounded p-3"
+        }
+      >
         <UserInfoCardHome
           gender={gender}
           height={height}
@@ -73,13 +82,19 @@ const HomePage = ({ loginData }) => {
         />
         <div>
           <h2>Enter your ingredients: </h2>
-          <small>Please enter each ingredient line by line to see it's nutrition scorecard.</small>
-          {/* TODO:the data in a form of object */}
+          <small>
+            Please enter each ingredient line by line to see it's nutrition
+            scorecard.
+          </small>
           <form
             onSubmit={handleSubmit(({ ingr }) => {
-              onSubmit(ingr);
-              setSubmitted(true);
-              reset();
+              setIngr(ingr);
+              if (analyze) {
+                setSubmitted(true);
+                reset();
+              } else {
+                onSubmit(ingr);
+              }
             })}
           >
             <div className="form-floating my-2">
@@ -91,21 +106,21 @@ const HomePage = ({ loginData }) => {
             </div>
 
             <div className="d-flex justify-content-start">
-          
-              <button type="submit" className="btn btn-primary">
+              <button
+                onClick={() => setAnalyze(true)}
+                type="submit"
+                className="btn btn-primary"
+              >
                 Analyze
               </button>
-              <button
-                type="submit"
-                className="btn btn-secondary ms-2"
-              >
+              <button type="submit" className="btn btn-secondary ms-2">
                 Add to Mealplan
               </button>
             </div>
           </form>
-      
         </div>
-        {/* <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div> */}
+        {/* Ingr */}
+        <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div>
       </div>
       {isConsumed && (
         <div>
@@ -120,10 +135,8 @@ const HomePage = ({ loginData }) => {
               Back to Home Page
             </button>
           </div>
-          
         </div>
       )}
-      
     </div>
   );
 };
