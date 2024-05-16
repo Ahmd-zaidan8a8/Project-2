@@ -16,20 +16,14 @@ function UserInfoCardHome({gender, height, userName, weight}) {
     }
     const burn = calcCalories(weight , height);
     return (
-        <section id="userInfoCardHome">
+        <section className="bg-light rounded shadow-sm p-1 mb-2" id="userInfoCardHome">
             
-            <h3>Hey {userName}, </h3>
-            <h4>The number below represents your daily caloric needs based upon the health information you provided</h4>
+            <h4 className="fw-bold fs-3">The number below represents your daily caloric needs</h4>
             <div>
-                <h1>{burn} Calories</h1>
-                {burn > 2000 ? <p>You need to consume more calories per day than the average person in order to maintain your weight</p>:
-                 <p>You need to consume less calories per day than the average person in order to maintain your weight</p>}
+                <h1 className="text-success fw-bold d-inline rounded ">{burn} Calories</h1>
+                {burn > 2000 ? <p>*You need to consume more calories per day than the average person in order to maintain your weight</p>:
+                 <p>*You need to consume less calories per day than the average person in order to maintain your weight</p>}
             </div>
-
-            {/* <p>Below you will find our analysis tool, which allows you to enter any food items by weight and receive detailed nutritional information</p>
-
-            <p>You can then capture these nutrient details and track your calories in your mealplan manager by clicking on the "add meal" button</p> */}
-
         </section>
     )
 }

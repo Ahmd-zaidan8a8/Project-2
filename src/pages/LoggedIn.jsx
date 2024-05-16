@@ -10,8 +10,8 @@ const LoggedIn = ({setLoginData}) => {
 
   return (
        
-    <div className="container-fluid w-50">
-    <h1 className="d-flex justify-content-center mb-3 shadow-lg bg-primary p-1 rounded text-white">Let's Get Started</h1>
+    <div className="container w-50 mt-5" >
+    <h1 className="d-flex justify-content-center mb-3 bg-gradient shadow-lg bg-primary p-1 rounded text-white">Let's Get Started</h1>
       <p className="d-flex justify-content-center mb-3">Please enter your health information below</p>
       <form className="shadow-lg p-4 radius rounded"
         onSubmit={handleSubmit((data) => {
@@ -68,8 +68,8 @@ const LoggedIn = ({setLoginData}) => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary">
-          Login
+        <button type="submit" className="btn btn-primary bg-gradient">
+          Submit
         </button>
       </form>
     </div>

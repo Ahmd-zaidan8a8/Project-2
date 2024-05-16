@@ -14,9 +14,9 @@ const App = () => {
 
   return (
     <div>
-      {/* <Navbar /> */}
+      <Navbar />
 
-      {/* <Sidebar /> */}
+      <Sidebar />
 
       <Routes>
         <Route path="/" element={<HomePage loginData={loginData}/>} />
@@ -24,7 +24,7 @@ const App = () => {
         <Route path="/summarylist" element={<SummaryList/>} />
       </Routes>
 
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };

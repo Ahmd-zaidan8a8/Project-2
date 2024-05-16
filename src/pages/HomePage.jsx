@@ -3,6 +3,7 @@ import FoodInfo from "../components/FoodInfo";
 import { useForm } from "react-hook-form";
 import UserInfoCardHome from "../components/UserInfoCardHome";
 import SummaryList from "./SummaryList";
+import DailyNutritionCard from "../components/DailyNutrionCard";
 import apiServer from "../services/api-server";
 
 const HomePage = ({ loginData }) => {
@@ -61,8 +62,8 @@ const HomePage = ({ loginData }) => {
   }
 
   return (
-    <div>
-      <div className={isConsumed ? "d-none" : "d-flex justify-content-between"}>
+    <div className="w-100 d-flex justify-content-center mt-4">
+      <div className={isConsumed ? "d-none" : "d-flex flex-column w-50 shadow-lg rounded p-3"}> 
         <UserInfoCardHome
           gender={gender}
           height={height}
@@ -72,7 +73,7 @@ const HomePage = ({ loginData }) => {
         />
         <div>
           <h2>Enter your ingredients: </h2>
-          <small>Please enter each ingredient line by line.</small>
+          <small>Please enter each ingredient line by line to see it's nutrition scorecard.</small>
           {/* TODO:the data in a form of object */}
           <form
             onSubmit={handleSubmit(({ ingr }) => {
@@ -89,15 +90,20 @@ const HomePage = ({ loginData }) => {
               ></textarea>
             </div>
 
-            <div className="d-felx jsutify-content-start">
-              <button type="submit" className="btn btn-secondary">
-                Add to Mealplan
-              </button>
+            <div className="d-flex justify-content-start">
+          
               <button type="submit" className="btn btn-primary">
                 Analyze
               </button>
+              <button
+                type="submit"
+                className="btn btn-secondary ms-2"
+              >
+                Add to Mealplan
+              </button>
             </div>
           </form>
+      
         </div>
         {/* <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div> */}
       </div>
@@ -114,8 +120,10 @@ const HomePage = ({ loginData }) => {
               Back to Home Page
             </button>
           </div>
+          
         </div>
       )}
+      
     </div>
   );
 };
