@@ -11,18 +11,18 @@ function DailyNutritionCard({ nutritionDetails }) {
     }
 
     return (
-        <section id="dailyNutritionCard">
+        <section className="table-responsive border border-1 rounded shadow-sm p-1 mt-4" id="dailyNutritionCard">
             <div>
                 <h1>Nutrition Facts</h1>
             </div>
             <div>
                 <h3>Amount Per Serving</h3>
             </div>
-            <table className="table">
+            <table className="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Calories</th>
-                        <th scope="col">{calories}</th>
+                        <th className="fs-3" scope="col">Calories</th>
+                        <th className="fs-3" scope="col">{calories}</th>
                     </tr>
                     <tr>
                     <th scope="col"></th>
