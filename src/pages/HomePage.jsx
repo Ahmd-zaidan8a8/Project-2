@@ -4,24 +4,20 @@ import { useForm } from "react-hook-form";
 import UserInfoCardHome from "../components/UserInfoCardHome";
 import SummaryList from "./SummaryList";
 import DailyNutritionCard from "../components/DailyNutrionCard";
+import apiServer from "../services/api-server";
 
 const HomePage = ({ loginData }) => {
   const [meals, setMeals] = useState([]);
-  
-  
-  const [meal, setMeal] = useState({
-    mealCount: 0,
-    dailyCalories: 0,
-    ingr: "",
-  });
 
-  
+  const [error, setError] = useState("");
 
   const [isSubmitted, setSubmitted] = useState(false);
   const [isConsumed, setConsumed] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  const { gender, height, id, userName, weight } = loginData;
+  // TODO: remove the default values
+
+  const { gender, height = 192, id, userName, weight = 80 } = loginData;
 
   const calcCalories = (weight, height) => {
     let BMR = 0;
@@ -41,15 +37,31 @@ const HomePage = ({ loginData }) => {
     let ingrArr = ingr.split("\n");
     return ingrArr;
   }
+
+  const createNewMeal = (meal) => {
+    apiServer
+      .post("/summarylist", meal)
+      .then((res) => console.log(res.data))
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
   const onSubmit = (ingr) => {
-    setMeal({
+    const newMeal = {
       dailyCalories: calcCalories(weight, height),
       ingr: splitIngr(ingr),
-      mealCount: meal.mealCount + 1,
-    });
+    };
+
+    createNewMeal(newMeal);
+
+    setMeals([newMeal, ...meals]);
     setConsumed(true);
   };
-  
+
+  if (error) {
+    return <p className="text-danger">{error}</p>;
+  }
 
   return (
     <div className="w-100 d-flex justify-content-center mt-4">
@@ -99,7 +111,7 @@ const HomePage = ({ loginData }) => {
       </div>
       {isConsumed && (
         <div>
-          <SummaryList meal={meal} setMeals={setMeals} meals={meals}/>
+          <SummaryList />
           <div className="my-4">
             <button
               onClick={() => {

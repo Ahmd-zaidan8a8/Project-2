@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import apiServer from "../services/api-server";
 
 //prop sent from app.jsx
 const LoggedIn = ({setLoginData}) => {
@@ -15,8 +15,8 @@ const LoggedIn = ({setLoginData}) => {
       <p className="d-flex justify-content-center mb-3">Please enter your health information below</p>
       <form className="shadow-lg p-4 radius rounded"
         onSubmit={handleSubmit((data) => {
-          axios
-            .post("http://localhost:5000/login", data)
+          apiServer
+            .post("/login", data)
             .then((res) => {
               console.log("sucess with logging in", res.data);
               setLoginData(res.data); //setting prop value
