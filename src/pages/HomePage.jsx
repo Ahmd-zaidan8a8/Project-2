@@ -1,5 +1,4 @@
 import { useState } from "react";
-import FoodInfo from "../components/FoodInfo";
 import { useForm } from "react-hook-form";
 import UserInfoCardHome from "../components/UserInfoCardHome";
 import SummaryList from "./SummaryList";
@@ -11,8 +10,9 @@ const HomePage = ({ loginData }) => {
 
   const [error, setError] = useState("");
 
-  const [ingr, setIngr] = useState("");
   const [analyze, setAnalyze] = useState(false);
+
+  const [apiResponse, setApiResponse] = useState(null);
 
   const [isSubmitted, setSubmitted] = useState(false);
   const [isConsumed, setConsumed] = useState(false);
@@ -45,6 +45,18 @@ const HomePage = ({ loginData }) => {
       .then((res) => console.log(res.data))
       .catch((err) => {
         setError(err.message);
+      });
+  };
+
+  const getFoodInf = (ingr) => {
+    apiServer
+      .get(`/nutrition-data?ingr=${ingr}`)
+      .then((response) => {
+        console.log("Response:", response.data);
+        setApiResponse(response.data);
+      })
+      .catch((error) => {
+        console.error("Error:", error.message);
       });
   };
 
@@ -88,8 +100,8 @@ const HomePage = ({ loginData }) => {
           </small>
           <form
             onSubmit={handleSubmit(({ ingr }) => {
-              setIngr(ingr);
               if (analyze) {
+                getFoodInf(ingr);
                 setSubmitted(true);
                 reset();
               } else {
@@ -119,8 +131,7 @@ const HomePage = ({ loginData }) => {
             </div>
           </form>
         </div>
-        {/* Ingr */}
-        <div>{isSubmitted && <FoodInfo ingr={ingr} />}</div>
+        <div>{isSubmitted && <DailyNutritionCard nutritionDetails={apiResponse} />}</div>
       </div>
       {isConsumed && (
         <div>
