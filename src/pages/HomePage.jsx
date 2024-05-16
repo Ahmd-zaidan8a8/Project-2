@@ -6,7 +6,7 @@ import DailyNutritionCard from "../components/DailyNutrionCard";
 import apiServer from "../services/api-server";
 import { useNavigate } from "react-router-dom";
 
-const HomePage = ({ loginData , userSubmit}) => {
+const HomePage = ({ loginData, userSubmit }) => {
   const [meals, setMeals] = useState([]);
 
   const navigate = useNavigate();
@@ -47,6 +47,7 @@ const HomePage = ({ loginData , userSubmit}) => {
       .get(`/nutrition-data?ingr=${ingr}`)
       .then((response) => {
         console.log("Response:", response.data);
+        console.log(response.data)
         setCaloriesPerMeal(response.data.calories);
         setApiResponse(response.data);
       })
@@ -56,7 +57,6 @@ const HomePage = ({ loginData , userSubmit}) => {
   };
 
   const submittAddToMealPlan = (ingr) => {
-    setBurn(calcCalories(weight, height));
     const newMeal = {
       dailyCalories: Math.round(caloriesPerMeal),
       ingr: splitIngr(ingr),

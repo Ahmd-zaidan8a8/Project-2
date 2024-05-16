@@ -49,9 +49,9 @@ function DailyNutritionCard({ nutritionDetails }) {
             <td>{roundToOneDecimal(totalDaily.FASAT.quantity)} %</td>
           </tr>
           <tr>
-            <th scope="row">
+            {totalNutrients.FATRN?.quantity && <th scope="row">
               Trans Fat --- {roundToOneDecimal(totalNutrients.FATRN.quantity)} g
-            </th>
+            </th>}
           </tr>
           <tr>
             <th scope="row">
@@ -76,18 +76,18 @@ function DailyNutritionCard({ nutritionDetails }) {
             <td>{roundToOneDecimal(totalDaily.CHOCDF.quantity)} %</td>
           </tr>
           <tr>
-            <th scope="row">
+            {totalNutrients.FIBTG?.quantity && <th scope="row">
               Dietary Fiber ---{" "}
               {roundToOneDecimal(totalNutrients.FIBTG.quantity)} g
-            </th>
+            </th>}
 
-            <td>{roundToOneDecimal(totalDaily.FIBTG.quantity)} %</td>
+            {totalDaily.FIBTG?.quantity && <td>{roundToOneDecimal(totalDaily.FIBTG.quantity)} %</td>}
           </tr>
           <tr>
-            <th scope="row">
+            {totalNutrients.SUGAR?.quantity && <th scope="row">
               Total Sugars ---{" "}
               {roundToOneDecimal(totalNutrients.SUGAR.quantity)} g
-            </th>
+            </th>}
           </tr>
           <tr>
             <th scope="row">
