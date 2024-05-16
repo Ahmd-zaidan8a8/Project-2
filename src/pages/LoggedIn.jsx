@@ -19,7 +19,7 @@ const LoggedIn = ({setLoginData}) => {
             .post("/login", data)
             .then((res) => {
               console.log("sucess with logging in", res.data);
-              setLoginData(res.data); //setting prop value
+              setLoginData(res.data); 
               navigate("/");
             })
             .catch((err) => console.log("Error in logging in", err));

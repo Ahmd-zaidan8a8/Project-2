@@ -1,22 +1,22 @@
 import { useState } from "react";
 import UpdateForm from "./UpdateForm";
 
-const CardMeal = ({ meal, index, onDelete , handleUpdateForm }) => {
+const CardMeal = ({ meal, index, onDelete, handleUpdateForm }) => {
   const { id, dailyCalories, ingr } = meal;
 
   const [showUpdaterForm, setUpdaterForm] = useState(false);
 
-  
-
-
   if (showUpdaterForm) {
     return (
       <div>
-        <UpdateForm id={id} setUpdateForm={setUpdaterForm} handleUpdateForm={handleUpdateForm} />
+        <UpdateForm
+          id={id}
+          setUpdateForm={setUpdaterForm}
+          handleUpdateForm={handleUpdateForm}
+        />
       </div>
     );
   }
-  console.log(ingr)
 
   return (
     <div className="container d-flex text-center">
@@ -24,7 +24,7 @@ const CardMeal = ({ meal, index, onDelete , handleUpdateForm }) => {
         <div className="card-body">
           <h5 className="card-title">Meal {index + 1}</h5>
           <ul className="list-group-item" style={{ listStyleType: "none" }}>
-            {ingr.map((ing , index) => (
+            {ingr.map((ing, index) => (
               <li key={index}>{ing}</li>
             ))}
           </ul>

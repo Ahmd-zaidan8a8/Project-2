@@ -14,18 +14,16 @@ const HomePage = ({ loginData }) => {
   const [isConsumed, setConsumed] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  // TODO: remove the default values
-
-  const { gender, height = 192, id, userName, weight = 80 } = loginData;
+  const { gender, height, id, userName, weight } = loginData;
 
   const calcCalories = (weight, height) => {
     let BMR = 0;
     let burn = 0;
     if (gender === "Male") {
-      BMR = 10 * weight + 6.25 * height - 5 * 30 + 5; //age shoudld be in place for 30
+      BMR = 10 * weight + 6.25 * height - 5 * 30 + 5;
       burn = BMR * 1.2;
     } else {
-      BMR = 10 * weight + 6.25 * height - 5 * 30 - 161; // age should be in place for 30
+      BMR = 10 * weight + 6.25 * height - 5 * 30 - 161; 
       burn = BMR * 1.2;
     }
 
