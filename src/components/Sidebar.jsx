@@ -6,7 +6,7 @@ const Sidebar = () => {
   const location = useLocation();
 
   // Define pages where the sidebar should be hidden
-  const pagesWithHiddenSidebar = ['/login' , '/summarylist'];
+  const pagesWithHiddenSidebar = ['/login'];
 
   // Determine if the sidebar should be hidden based on the current route
   const isSidebarHidden = pagesWithHiddenSidebar.includes(location.pathname);
@@ -17,6 +17,7 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar list-group fw-bold bg-secondary text-center text-wrap shadow-lg border border-1 border-dark">
+      <Link to="/" className="sidebarLinks list-group-item list-group-item-action p-1">Home</Link>
       <Link to="/login" className="sidebarLinks list-group-item list-group-item-action p-1">Login</Link>
       <Link to="/summarylist"className="sidebarLinks list-group-item list-group-item-action p-1">Meal Summary</Link>
       <Link className="sidebarLinks list-group-item list-group-item-action p-1">Content Library</Link>

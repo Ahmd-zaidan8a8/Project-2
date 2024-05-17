@@ -10,7 +10,7 @@ function DailyNutritionCard({ nutritionDetails }) {
 
   return (
     <section
-      className="table-responsive border border-1 rounded shadow-sm p-1 mt-4"
+      className="table-responsive border border-1 rounded shadow-sm p-1 mt-4 mb-5"
       id="dailyNutritionCard"
     >
       <div>
@@ -47,11 +47,6 @@ function DailyNutritionCard({ nutritionDetails }) {
               {roundToOneDecimal(totalNutrients.FASAT.quantity)} g
             </th>
             <td>{roundToOneDecimal(totalDaily.FASAT.quantity)} %</td>
-          </tr>
-          <tr>
-            {totalNutrients.FATRN?.quantity && <th scope="row">
-              Trans Fat --- {roundToOneDecimal(totalNutrients.FATRN.quantity)} g
-            </th>}
           </tr>
           <tr>
             <th scope="row">

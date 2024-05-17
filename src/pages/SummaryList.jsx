@@ -42,7 +42,7 @@ const SummaryList = () => {
     <div>
       {isDeleted && (
         <div>
-          <div className="alert alert-danger" role="alert">
+          <div className="alert alert-danger d-flex justify-content-center" role="alert">
             you successfully removed a Meal !
           </div>
           {/* <button className="btn btn-info">show info</button> */}
