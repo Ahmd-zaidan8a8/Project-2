@@ -1,8 +1,22 @@
-# React + Vite
+# Calorie Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Description
+Ever had trouble sticking to a diet? Then this app is for you!
 
-Currently, two official plugins are available:
+This is an interactive application that provides you with your recommended daily calorie amount based upon your health paramters (weight, height, etc.)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### How to use the application
+1. Login to the application and add your health information
+2. Add your daily meals on the the homepage and click analyze
+3. A nutrition scorecard will be rendered with full details
+4. Add the meal to your mealplan manager and track your daily calorie consumption
+
+### How to launch the app
+
+1. Clone the project - git clone
+2. Install dependencies (npm install)
+3. Start program - NPM RUN DEV
+
+
+Link to project [Calorie Tracker](https://calorieswatcher.netlify.app/login)
+
