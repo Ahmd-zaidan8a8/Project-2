@@ -3,7 +3,7 @@
 ### Description
 Ever had trouble sticking to a diet? Then this app is for you!
 
-This is an interactive application that provides you with your recommended daily calorie amount based upon your health paramters (weight, height, etc.)
+This is an interactive application that provides you with your recommended daily calorie amount based upon your health parameters (weight, height, etc.)
 
 ### How to use the application
 1. Login to the application and add your health information
