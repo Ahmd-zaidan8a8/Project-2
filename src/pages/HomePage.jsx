@@ -83,10 +83,13 @@ const HomePage = ({ loginData, userSubmit }) => {
       >
         <UserInfoCardHome loginData={loginData} />
         <div>
-          <h2>Enter your ingredients: </h2>
+          <h2 className="mt-3">Enter your ingredients: </h2>
           <small>
-            Please enter each ingredient line by line to see it's nutrition
-            scorecard.
+            Please enter one ingredient or meal at a time, including either its unit quantity or weight in grams
+          </small>
+          <br></br>
+          <small>
+            i.e --- 100 grams carrots
           </small>
           <form
             onSubmit={handleSubmit(({ ingr }) => {

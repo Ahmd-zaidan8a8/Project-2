@@ -21,7 +21,7 @@ const UpdateForm = ({ setUpdateForm, id, handleUpdateForm }) => {
 
 
   return (
-    <div className="my-3">
+    <div className="my-3 d-flex justify-content-center">
       <form
         onSubmit={handleSubmit(({ newIngr }) => {
           setUpdateForm(false);

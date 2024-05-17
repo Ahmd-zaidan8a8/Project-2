@@ -1,4 +1,6 @@
-
+body {
+        padding-bottom: 60px;
+}
 .sidebar {
         height: 58vh; 
         width: 12vw;
